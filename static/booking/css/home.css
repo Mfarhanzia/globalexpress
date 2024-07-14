@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.bg-image {
+    background-size: cover;
+    background-position: center;
+}
+
+header {
+    background: #007bff;
+    padding: 20px 0;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+header p {
+    margin: 0;
+}
+
+form .form-select, form .form-control {
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.bg-light h3 {
+    margin-top: 10px;
+}

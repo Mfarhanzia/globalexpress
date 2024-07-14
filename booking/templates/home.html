@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transglobal Express</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'booking/css/home.css' %}" rel="stylesheet">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <div class="container">
+            <h1 class="mb-0">Transglobal Express</h1>
+            <p class="mb-0">Delivering worldwide without charging the earth</p>
+            <div class="d-flex justify-content-end">
+                <a href="#" class="btn btn-light me-2">Register</a>
+                <a href="#" class="btn btn-light">Login</a>
+            </div>
+        </div>
+    </header>
+    <section class="bg-image text-white text-center py-5" style="background-image: url('{% static 'images/bg.jpg' %}');">
+        <div class="container">
+            <h2 class="mb-4">Compare worldwide parcel delivery services...</h2>
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option selected>United Kingdom (Mainland)</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Postcode (recommended)">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option selected>Please Select</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Postcode (recommended)">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option selected>Parcel/Large Letter</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option selected>Cardboard Box</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" class="form-control" placeholder="Weight (kg)">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" class="form-control" placeholder="Length (cm)">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" class="form-control" placeholder="Width (cm)">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Get a quote</button>
+            </form>
+        </div>
+    </section>
+    <section class="bg-light py-5">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>Parcel Delivery</h3>
+                </div>
+                <div class="col-md-3">
+                    <h3>Air Freight</h3>
+                </div>
+                <div class="col-md-3">
+                    <h3>Sea Freight</h3>
+                </div>
+                <div class="col-md-3">
+                    <h3>Packaging Supplies</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
