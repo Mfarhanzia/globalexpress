@@ -1,94 +1,137 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transglobal Express</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{% static 'booking/css/home.css' %}" rel="stylesheet">
-</head>
-<body>
-    <header class="bg-primary text-white text-center py-3">
-        <div class="container">
-            <h1 class="mb-0">Transglobal Express</h1>
-            <p class="mb-0">Delivering worldwide without charging the earth</p>
-            <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-light me-2">Register</a>
-                <a href="#" class="btn btn-light">Login</a>
+
+{% block body %}
+    <section class="carousel-section">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'booking/imgs/carousel1.jpeg' %}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'booking/imgs/carousel2.jpeg' %}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'booking/imgs/carousel3.jpeg' %}" class="d-block w-100" alt="...">
+                </div>
             </div>
         </div>
-    </header>
-    <section class="bg-image text-white text-center py-5" style="background-image: url('{% static 'images/bg.jpg' %}');">
-        <div class="container">
-            <h2 class="mb-4">Compare worldwide parcel delivery services...</h2>
-            <form>
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <select class="form-select">
-                            <option selected>United Kingdom (Mainland)</option>
-                            <!-- Add more options as needed -->
-                        </select>
+        <div class="carousel-overlay">
+            <div class="container form-container mt-5">
+                <h2 class="mb-4 text-center text-white">Compare worldwide parcel delivery services...</h2>
+                <form class="compare-form" method="POST" action={% url "home" %}>
+                    {% csrf_token %}
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="sending-from" class="form-label">Sending from...</label>
+                            <select name="sending_from" id="sending-from" class="form-select" required>
+                                <option>Please Select</option>
+                                <option value="232-US" selected>United States</option>
+                                {% for country in countries_list %}
+                                    <option value="{{country.CountryID}}-{{country.CountryCode}}" county-code="{{country.CountryCode}}">{{country.Title}}</option>
+                                {% endfor %}
+                            </select>
+                            <p>{{form.fields.sending_from.errors}}</p>
+                            <input name="sending_postcode"type="text" class="form-control mt-2" placeholder="Postcode (recommended)" value="10005" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="delivered-to" class="form-label">Delivered to...</label>
+                            <select name="delivered_to" id="delivered-to" class="form-select" required>
+                                <option>Please Select</option>
+                                <option value="231-GB" selected>United Kingdom (Mainland)</option>
+                                {% for country in countries_list %}
+                                    <option value="{{country.CountryID}}-{{country.CountryCode}}" county-code="{{country.CountryCode}}">{{country.Title}}</option>
+                                {% endfor %}
+                            </select>
+                            <input name="delivered_postcode" type="text" class="form-control mt-2" placeholder="Postcode (recommended)" value="EH21 6UU" required>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" placeholder="Postcode (recommended)">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-4">
+                            <label for="what-sending" class="form-label">What are you sending?</label>
+                            <select name="what_sending" id="what-sending" class="form-select" required>
+                                <option value="Parcel" selected>Parcel/Large Letter</option>
+                                <option value="Pallet">Pallet</option>
+                                <option value="Document">Document</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input name="quantity" type="number" id="quantity" class="form-control" value="1" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="packaging-type" class="form-label">Outer Packaging Type:</label>
+                            <select name="packaging_type" id="packaging-type" class="form-select" required>
+                                <option value="Cardboard" selected>Cardboard Box</option>
+                                <option value="Jiffy" selected>Jiffy / Flyer Bag</option>
+                                <option value="Other" selected>Other</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <select class="form-select">
-                            <option selected>Please Select</option>
-                            <!-- Add more options as needed -->
-                        </select>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-3">
+                            <label for="weight" class="form-label">Weight</label>
+                            <input name="weight" type="number" id="weight" class="form-control" placeholder="lbs" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="length" class="form-label">Length</label>
+                            <input name="length" type="number" id="length" class="form-control" placeholder="inch" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="width" class="form-label">Width</label>
+                            <input name="width" type="number" id="width" class="form-control" placeholder="inch" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="height" class="form-label">Height</label>
+                            <input name="height" type="number" id="height" class="form-control" placeholder="inch" required>
+                            <p>{{form.fields.number.error}}</p>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" placeholder="Postcode (recommended)">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-12 text-start">
+                            <label class="form-label d-block">Measurements:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="measurements" id="measurementsKgCm" value="kg/cm">
+                                <label class="form-check-label form-label" for="measurementsKgCm">kg/cm</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="measurements" id="measurementsLbInches" value="lb/inches" checked>
+                                <label class="form-check-label form-label" for="measurementsLbInches">lb/inches</label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <select class="form-select">
-                            <option selected>Parcel/Large Letter</option>
-                            <!-- Add more options as needed -->
-                        </select>
+                    <div class="form-check form-switch text-start">
+                        <input class="form-check-input" type="checkbox" id="saveConsignment">
+                        <label class="form-check-label form-label" for="saveConsignment">Use Saved Consignment</label>
                     </div>
-                    <div class="col-md-3">
-                        <select class="form-select">
-                            <option selected>Cardboard Box</option>
-                            <!-- Add more options as needed -->
-                        </select>
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-primary mt-3">Get a quote</button>
                     </div>
-                    <div class="col-md-2">
-                        <input type="number" class="form-control" placeholder="Weight (kg)">
-                    </div>
-                    <div class="col-md-2">
-                        <input type="number" class="form-control" placeholder="Length (cm)">
-                    </div>
-                    <div class="col-md-2">
-                        <input type="number" class="form-control" placeholder="Width (cm)">
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Get a quote</button>
-            </form>
+                </form>
+            </div>
         </div>
     </section>
+
     <section class="bg-light py-5">
         <div class="container text-center">
             <div class="row">
                 <div class="col-md-3">
-                    <h3>Parcel Delivery</h3>
+                    <i class="fa-solid fa-truck-ramp-box"></i>
+                    <h4>Parcel Delivery</h4>
                 </div>
                 <div class="col-md-3">
-                    <h3>Air Freight</h3>
+                    <i class="fa-solid fa-plane"></i>
+                    <h4>Air Freight</h4>
                 </div>
                 <div class="col-md-3">
-                    <h3>Sea Freight</h3>
+                    <i class="fa-solid fa-ship"></i>
+                    <h4>Sea Freight</h4>
                 </div>
                 <div class="col-md-3">
-                    <h3>Packaging Supplies</h3>
+                    <i class="fa-solid fa-boxes-packing"></i>
+                    <h4>Packaging Supplies</h4>
                 </div>
             </div>
         </div>
     </section>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}

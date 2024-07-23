@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% load booking_filter %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <table class="mt-5 table table-striped table-responsive w-100">
+                    <thead>
+                        <tr class="text-center">
+                            <td>Services</td>
+                            <td>Estimated Tansit Time</td>
+                            <td>Chargeable Weight</td>
+                            <td>Surcharges</td>
+                            <td>Remote Surcharges</td>
+                            <td>Total
+                                (incl. surcharges)
+                                </td>
+                            <td>Collection</td>
+                            <td>Select</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for quotation in quotations %}
+                            <tr>
+                                <td>{{quotation.ServiceName}}</td>
+                                <td>{{quotation.TransitTimeEstimate}}</td>
+                                <td>{{quotation.ChargeableWeight}}</td>
+                                <td>{{quotation.}}</td>
+                                <td>{{quotation.}}</td>
+                                <td>{{quotation.TotalCost.TotalCostGrossWithCollection}}</td>
+                                <td>{{ quotation.TotalCost.TotalCostNetWithCollection|subtract:quotation.TotalCost.TotalCostNetWithoutCollection }}</td>
+                                <td>
+                                    <button type="button" class="button btn">Select</button> 
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
